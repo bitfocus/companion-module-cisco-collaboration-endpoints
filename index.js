@@ -143,7 +143,33 @@ instance.prototype.actions = function(system) {
 		},
 		'audio-volume-decrease': {
 			label: 'Decrease Speaker Volume'
-		}
+		},
+		'audio-volume-mute': {
+			label: 'Mute Speaker Volume'
+		},
+		'audio-volume-unmute': {
+			label: 'Unmute Speaker Volume'
+		},
+		'audio-volume-set': {
+			label: 'Set Speaker Volume',
+			options: [
+				{
+				type: 'number',
+				id: 'level',
+				label: 'Volume Level',
+				default: 50,
+				min: 0,
+				max: 100,
+				width: 8
+				}
+			]
+		},
+		'presentation-start': {
+			label: 'Start Presentation'
+		},
+		'presentation-stop': {
+			label: 'Stop Presentation'
+		},
 	});
 }
 
@@ -159,7 +185,6 @@ instance.prototype.createCiscoCommand = function(path, propdict) {
 	thisPtr['@command'] = 'True';
 	var command = {Command: commandXML};
 	var strCommand = xmlbuilder.create(command).end({ pretty: true});
-	console.log(strCommand);
 	return(strCommand);
 }
 
@@ -200,6 +225,23 @@ instance.prototype.action = function(action) {
 				break;
 			case 'audio-volume-decrease':
 				var command = self.createCiscoCommand(['Audio','Volume','Decrease'],{});
+				break;
+			case 'audio-volume-mute':
+				var command = self.createCiscoCommand(['Audio','Volume','Mute'],{});
+				break;
+			case 'audio-volume-unmute':
+				var command = self.createCiscoCommand(['Audio','Volume','UnMute'],{});
+				break;
+			case 'audio-volume-set':
+				var command = self.createCiscoCommand(['Audio','Volume','Set'],{
+					Level : action.options.level
+				});
+				break;
+			case 'presentation-start':
+				var command = self.createCiscoCommand(['Presentation','Start'],{});
+				break;
+			case 'presentation-stop':
+				var command = self.createCiscoCommand(['Presentation','Stop'],{});
 				break;
 		};
 

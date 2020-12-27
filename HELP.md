@@ -10,4 +10,5 @@ Add a button and choose the action you want to use.
 * Connect/Disconnect Call
 * DMTF tones during call
 * Mute/Unmute Microphone
-* Volume Up/Down
+* Speaker volume Up/Down/Mute/Unmute
+* Presentation Start/Stop

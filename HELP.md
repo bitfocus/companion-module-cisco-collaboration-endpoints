@@ -7,6 +7,7 @@
 Add a button and choose the action you want to use.
 
 **Avalible Actions:**
+* Camera set position (from preset)
 * Connect/Disconnect Call
 * DMTF tones during call
 * Mute/Unmute Microphone

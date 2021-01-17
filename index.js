@@ -164,6 +164,29 @@ instance.prototype.actions = function(system) {
 				}
 			]
 		},
+		'camera-positionactivatefrompreset': {
+			label: 'Go To Camera Preset',
+			options: [
+				{
+				type: 'number',
+				id: 'cameraid',
+				label: 'Camera Id',
+				default: 1,
+				min: 1,
+				max: 10,
+				width: 8
+				},
+				{
+				type: 'number',
+				id: 'presetid',
+				label: 'Preset Id',
+				default: 1,
+				min: 1,
+				max: 100,
+				width: 8
+				}
+			]
+		},
 		'presentation-start': {
 			label: 'Start Presentation'
 		},
@@ -235,6 +258,12 @@ instance.prototype.action = function(action) {
 			case 'audio-volume-set':
 				var command = self.createCiscoCommand(['Audio','Volume','Set'],{
 					Level : action.options.level
+				});
+				break;
+			case 'camera-positionactivatefrompreset':
+				var command = self.createCiscoCommand(['Camera','PositionActivateFromPreset'],{
+					CameraId : action.options.cameraid,
+					PresetId : action.options.presetid
 				});
 				break;
 			case 'presentation-start':

@@ -12,4 +12,5 @@ Add a button and choose the action you want to use.
 * DMTF tones during call
 * Mute/Unmute Microphone
 * Speaker volume Up/Down/Mute/Unmute
+* Standby/wake/set standby timer
 * Presentation Start/Stop

@@ -22,3 +22,7 @@ These tests are tried on each device by hand:
 * Set Volume to 20
 * Start Presentation
 * Stop Presentation
+* Position Active from Preset
+* Standby
+* Wake
+* Reset (Standby Timer)

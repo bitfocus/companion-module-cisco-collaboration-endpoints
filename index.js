@@ -164,6 +164,49 @@ instance.prototype.actions = function(system) {
 				}
 			]
 		},
+		'camera-positionactivatefrompreset': {
+			label: 'Go To Camera Preset',
+			options: [
+				{
+				type: 'number',
+				id: 'cameraid',
+				label: 'Camera Id',
+				default: 1,
+				min: 1,
+				max: 10,
+				width: 8
+				},
+				{
+				type: 'number',
+				id: 'presetid',
+				label: 'Preset Id',
+				default: 1,
+				min: 1,
+				max: 100,
+				width: 8
+				}
+			]
+		},
+		'standby-activate': {
+			label: 'Start Standby'
+		},
+		'standby-deactivate': {
+			label: 'Stop Standby / Wake'
+		},
+		'standby-resettimer': {
+			label: 'Reset Standby Timer',
+			options: [
+				{
+				type: 'number',
+				id: 'delay',
+				label: 'Minutes',
+				default: 30,
+				min: 1,
+				max: 480,
+				width: 8
+				}
+			]
+		},
 		'presentation-start': {
 			label: 'Start Presentation'
 		},
@@ -235,6 +278,23 @@ instance.prototype.action = function(action) {
 			case 'audio-volume-set':
 				var command = self.createCiscoCommand(['Audio','Volume','Set'],{
 					Level : action.options.level
+				});
+				break;
+			case 'camera-positionactivatefrompreset':
+				var command = self.createCiscoCommand(['Camera','PositionActivateFromPreset'],{
+					CameraId : action.options.cameraid,
+					PresetId : action.options.presetid
+				});
+				break;
+			case 'standby-activate':
+				var command = self.createCiscoCommand(['Standby','Activate'],{});
+				break;
+			case 'standby-deactivate':
+				var command = self.createCiscoCommand(['Standby','Deactivate'],{});
+				break;
+			case 'standby-resettimer':
+				var command = self.createCiscoCommand(['Standby','ResetTimer'],{
+					Delay: action.options.delay
 				});
 				break;
 			case 'presentation-start':

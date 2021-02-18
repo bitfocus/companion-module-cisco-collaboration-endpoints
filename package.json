@@ -44,5 +44,8 @@
 		"xmlbuilder": "^11.0.1"
 	},
 	"author": "Thomas Cantrell <thomas@thomascantrell.com",
-	"license": "MIT"
+	"license": "MIT",
+	"contributors": [
+		"Yuri Vidal <yuri.vidal@gmail.com>"
+	]
 }

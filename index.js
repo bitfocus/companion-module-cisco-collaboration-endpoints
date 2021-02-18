@@ -79,7 +79,16 @@ instance.prototype.config_fields = function () {
 				{ id: 8, label: 'CE8'},
 				{ id: 9, label: 'CE9'}
 				]
+		},
+		{
+			type: 'number',
+			id: 'defaultcam',
+			label: 'Default Camera ID',
+			default: 1,
+			min: 1,
+			max: 7	
 		}
+
 	]
 }
 
@@ -91,7 +100,7 @@ instance.prototype.destroy = function() {
 
 instance.prototype.actions = function(system) {
 	var self = this;
-
+	
 	self.setActions({
 		'dial': {
 			label: 'Call/Dial Number',
@@ -171,7 +180,7 @@ instance.prototype.actions = function(system) {
 				type: 'number',
 				id: 'cameraid',
 				label: 'Camera Id',
-				default: 1,
+				default: self.config.defaultcam,
 				min: 1,
 				max: 10,
 				width: 8
@@ -185,6 +194,196 @@ instance.prototype.actions = function(system) {
 				max: 100,
 				width: 8
 				}
+			]
+		},
+		'camera-positionreset': {
+			label: 'Reset Camera Position',
+			options: [
+				{
+				type: 'number',
+				id: 'cameraid',
+				label: 'Camera Id',
+				default: self.config.defaultcam,
+				min: 1,
+				max: 10,
+				width: 8
+				}
+			]
+		},
+		'camera-triggerautofocus': {
+			label: 'Camera Trigger Autofocus',
+			options: [
+				{
+				type: 'number',
+				id: 'cameraid',
+				label: 'Camera Id',
+				default: self.config.defaultcam,
+				min: 1,
+				max: 7,
+				width: 8
+				}
+			]
+		},
+		'camera-presetactivate': {
+			label: 'Go To Camera Presetv2',
+			options: [
+				{
+				type: 'number',
+				id: 'cameraid',
+				label: 'Camera Id',
+				default: self.config.defaultcam,
+				min: 1,
+				max: 10,
+				width: 8
+				},
+				{
+				type: 'number',
+				id: 'presetid',
+				label: 'Preset Id',
+				default: 1,
+				min: 1,
+				max: 100,
+				width: 8
+				}
+			]
+		},
+		'camera-preset': {
+			label: 'Camera Presets',
+			options: [
+				{
+				type: 'number',
+				id: 'cameraid',
+				label: 'Camera Id',
+				default: self.config.defaultcam,
+				min: 1,
+				max: 10,
+				width: 8
+				},
+				{
+				type: 'number',
+				id: 'presetid',
+				label: 'Preset Id',
+				default: 1,
+				min: 1,
+				max: 35,
+				width: 8
+				},
+				{
+					type: 'dropdown',
+					id: 'presetaction',
+					label: 'Action',
+					width: 8,
+					default: 'Recall',
+					choices: [{ id: 'Recall', label: 'Recall'},
+					{ id: 'Save', label: 'Save'},
+					{ id: 'Delete', label: 'Delete'}]	
+				}
+				
+			]
+		},
+		'camera-ramp': {
+			label: 'Move The Camera Pan/Tilt',
+			options: [
+			
+				{
+				type: 'number',
+				id: 'cameraid',
+				label: 'Camera Id',
+				default: self.config.defaultcam,
+				min: 1,
+				max: 7,
+				width: 8
+				},
+				{
+					type: 'text',
+					id: 'info',
+					label: 'Remember to Set Stop on Key UP',
+					width: 8
+				},
+				{
+					type: 'dropdown',
+					id: 'pan',
+					label: 'Pan/Tilt',
+					width: 8,
+					default: 'Stop',
+					choices: [{ id: 'Left', label: 'Left'},
+					{ id: 'Right', label: 'Right'},
+					{ id: 'Up', label: 'Up'},
+					{ id: 'Down', label: 'Down'},
+					{ id: 'Stop', label: 'Stop'}]
+
+				},
+				{
+					type: 'number',
+					id: 'panspeed',
+					label: 'Speed',
+					default: 1,
+					min: 1,
+					max: 15,
+					width: 8
+					}
+				
+			]
+		},
+		'camera-zoom': {
+			label: 'Camera Zoom',
+			options: [
+				{
+				type: 'number',
+				id: 'cameraid',
+				label: 'Camera Id',
+				default: self.config.defaultcam,
+				min: 1,
+				max: 7,
+				width: 8
+				},
+				{
+					type: 'dropdown',
+					id: 'zoom',
+					label: 'Zoom',
+					width: 8,
+					default: 'Stop',
+					choices: [{ id: 'In', label: 'In'},
+					{ id: 'Out', label: 'Out'},
+					{ id: 'Stop', label: 'Stop'}]
+
+				},
+				{
+					type: 'number',
+					id: 'zoomspeed',
+					label: 'Speed',
+					default: 10,
+					min: 1,
+					max: 15,
+					width: 8
+					}
+				
+			]
+		},
+		'camera-focus': {
+			label: 'Camera Focus',
+			options: [
+				{
+				type: 'number',
+				id: 'cameraid',
+				label: 'Camera Id',
+				default: self.config.defaultcam,
+				min: 1,
+				max: 7,
+				width: 8
+				},
+				{
+					type: 'dropdown',
+					id: 'focus',
+					label: 'Focus',
+					width: 8,
+					default: 'Stop',
+					choices: [{ id: 'Far', label: 'Far'},
+					{ id: 'Near', label: 'Near'},
+					{ id: 'Stop', label: 'Stop'}]
+
+				}
+				
 			]
 		},
 		'standby-activate': {
@@ -286,6 +485,77 @@ instance.prototype.action = function(action) {
 					PresetId : action.options.presetid
 				});
 				break;
+			case 'camera-ramp':
+				if ( action.options.pan == "Right" ||  action.options.pan == "Left"){
+					var command = self.createCiscoCommand(['Camera','Ramp'],{
+						CameraId : action.options.cameraid,
+						Pan : action.options.pan,
+						PanSpeed: action.options.panspeed
+				});
+				}
+				else if ( action.options.pan == "Up" ||  action.options.pan == "Down"){
+					var command = self.createCiscoCommand(['Camera','Ramp'],{
+						CameraId : action.options.cameraid,
+						Tilt : action.options.pan,
+						TiltSpeed: action.options.panspeed
+				});
+				}
+				else if ( action.options.pan == "Stop"){
+					var command = self.createCiscoCommand(['Camera','Ramp'],{
+						CameraId : action.options.cameraid,
+						Pan : action.options.pan,
+						Tilt: action.options.pan
+				});
+				}
+				break;
+				case 'camera-preset':
+					if ( action.options.presetaction == "Save"){
+						var command = self.createCiscoCommand(['Camera','Preset', 'Store'],{
+							PresetId: action.options.presetid,
+							CameraId : action.options.cameraid,
+							ListPosition: action.options.presetid 
+					});
+					}
+					else if ( action.options.presetaction == "Recall"){
+						var command = self.createCiscoCommand(['Camera','Preset', 'Activate'],{
+							PresetId: action.options.presetid
+					});
+					}
+					else if ( action.options.presetaction == "Delete"){
+						var command = self.createCiscoCommand(['Camera','Preset', 'Remove'],{
+							PresetId: action.options.presetid
+					});
+					}
+					break;	
+			case 'camera-zoom':
+				var command = self.createCiscoCommand(['Camera','Ramp'],{
+					CameraId : action.options.cameraid,
+					Zoom : action.options.zoom,
+					ZoomSpeed: action.options.zoomspeed
+				});
+				break;
+			case 'camera-focus':
+				var command = self.createCiscoCommand(['Camera','Ramp'],{
+					CameraId : action.options.cameraid,
+					Focus : action.options.focus
+				});
+				break;					
+			case 'camera-positionreset':
+				var command = self.createCiscoCommand(['Camera','PositionReset'],{
+					CameraId : action.options.cameraid
+				});
+				break;
+			case 'camera-triggerautofocus':
+				var command = self.createCiscoCommand(['Camera','TriggerAutofocus'],{
+					CameraId : action.options.cameraid
+				});
+				break;			
+			case 'camera-presetactivate':
+				var command = self.createCiscoCommand(['Camera','Preset', 'Activate'],{
+					CameraId : action.options.cameraid,
+					PresetId : action.options.presetid
+				});
+				break;	
 			case 'standby-activate':
 				var command = self.createCiscoCommand(['Standby','Activate'],{});
 				break;
@@ -309,7 +579,7 @@ instance.prototype.action = function(action) {
 		headers["Content-Type"] = "text/xml";
 
 		var options_auth = { user: self.config.user, password: self.config.password };
-
+		console.log (command);
 		self.system.emit('rest', url, command, function (err, result) {
 			if (err !== null) {
 				self.status(self.STATUS_ERROR, 'Cisco VTC Request Failed. Type: ' + action.action);

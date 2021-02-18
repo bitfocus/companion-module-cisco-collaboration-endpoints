@@ -550,7 +550,7 @@ instance.prototype.action = function(action) {
 		headers["Content-Type"] = "text/xml";
 
 		var options_auth = { user: self.config.user, password: self.config.password };
-		console.log (command);
+		//console.log (command);
 		self.system.emit('rest', url, command, function (err, result) {
 			if (err !== null) {
 				self.status(self.STATUS_ERROR, 'Cisco VTC Request Failed. Type: ' + action.action);

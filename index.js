@@ -224,29 +224,6 @@ instance.prototype.actions = function(system) {
 				}
 			]
 		},
-		'camera-presetactivate': {
-			label: 'Go To Camera Presetv2',
-			options: [
-				{
-				type: 'number',
-				id: 'cameraid',
-				label: 'Camera Id',
-				default: self.config.defaultcam,
-				min: 1,
-				max: 10,
-				width: 8
-				},
-				{
-				type: 'number',
-				id: 'presetid',
-				label: 'Preset Id',
-				default: 1,
-				min: 1,
-				max: 100,
-				width: 8
-				}
-			]
-		},
 		'camera-preset': {
 			label: 'Camera Presets',
 			options: [
@@ -550,12 +527,6 @@ instance.prototype.action = function(action) {
 					CameraId : action.options.cameraid
 				});
 				break;			
-			case 'camera-presetactivate':
-				var command = self.createCiscoCommand(['Camera','Preset', 'Activate'],{
-					CameraId : action.options.cameraid,
-					PresetId : action.options.presetid
-				});
-				break;	
 			case 'standby-activate':
 				var command = self.createCiscoCommand(['Standby','Activate'],{});
 				break;

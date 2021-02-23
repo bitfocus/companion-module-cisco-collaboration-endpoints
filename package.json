@@ -1,6 +1,6 @@
 {
 	"name": "cisco-collaboration-endpoints",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "",
 	"manufacturer": "Cisco",
 	"product": [
@@ -44,5 +44,8 @@
 		"xmlbuilder": "^11.0.1"
 	},
 	"author": "Thomas Cantrell <thomas@thomascantrell.com",
-	"license": "MIT"
+	"license": "MIT",
+	"contributors": [
+		"Yuri Vidal <yuri.vidal@gmail.com>"
+	]
 }

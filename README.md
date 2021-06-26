@@ -1,5 +1,8 @@
 Please see HELP.md and LICENSE for more information.
 
+***This module is deprecated. Use https://github.com/bitfocus/companion-module-cisco-webex-websocket instead.***
+
+
 ### Tested Devices
 * Cisco C60 (TC7.3.6.ea51021)
 * Cisco E20 (TE4.1.3.303423)
